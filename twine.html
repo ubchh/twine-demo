@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Twine Demo – GPT Example</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Helvetica, sans-serif;
+      background-color: #f7f7f9;
+      color: #222;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    a {
+      display: inline-block;
+      margin: 6px 0;
+      padding: 8px 14px;
+      background: #0055aa;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    a:hover {
+      background: #0074d9;
+    }
+    h1 {
+      color: #0055aa;
+      font-size: 1.6em;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Twine Demo Story</h1>
+
+<div id="story"></div>
+
+<script>
+const passages = {
+  "Start": {
+    text: "Welcome to your first Twine demo! Where would you like to go?",
+    links: [
+      { text: "Enter the forest", target: "Forest" },
+      { text: "Visit the town", target: "Town" }
+    ]
+  },
+  "Forest": {
+    text: "You enter a peaceful forest. The birds are singing.",
+    links: [
+      { text: "Return to town", target: "Town" },
+      { text: "Go back to the start", target: "Start" }
+    ]
+  },
+  "Town": {
+    text: "You stroll through the quiet town square. A fountain bubbles nearby.",
+    links: [
+      { text: "Walk into the forest", target: "Forest" },
+      { text: "Restart", target: "Start" }
+    ]
+  }
+};
+
+function showPassage(name) {
+  const p = passages[name];
+  if (!p) return;
+  const container = document.getElementById("story");
+  container.innerHTML = `<p>${p.text}</p>` + 
+    p.links.map(link => `<a href="#" onclick="showPassage('${link.target}');return false;">${link.text}</a>`).join("<br>");
+}
+showPassage("Start");
+</script>
+
+</body>
+</html>
